@@ -24,4 +24,3 @@ mongoose.connect(`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGOD
             console.log(`App is listening on port 4001`);
         });
     })
-
