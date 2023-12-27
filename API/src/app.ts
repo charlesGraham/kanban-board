@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import mongoose from "mongoose";
 import * as usersController from "./controllers/users";
 import bodyParser from "body-parser";
+import authMiddleware from "./middlewares/auth";
 
 
 const app = express();
@@ -18,8 +19,11 @@ app.get('/', (req, res) => {
     res.send("API is up");
 });
 
+
+
 app.post("/api/users", usersController.register);
-app.post("/api/login", usersController.login);
+app.post("/api/users/login", usersController.login);
+app.get("/api/user", authMiddleware, usersController.currentUser);
 
 io.on("connection", () => {
     console.log("Connected!");
