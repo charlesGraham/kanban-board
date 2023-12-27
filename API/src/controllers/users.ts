@@ -2,12 +2,16 @@ import { Request, Response, NextFunction } from "express";
 import UserModel from "../models/user";
 import { UserDocument } from "../types/user.interface";
 import { Error } from "mongoose";
+import jwt from "jsonwebtoken";
+import { secret } from "../config";
 
 const normalizeUser = (user: UserDocument) => {
+    const token = jwt.sign({ id: user.id, email: user.email }, secret);
     return {
         email: user.email,
         username: user.username,
-        id: user.id
+        id: user.id,
+        token
     };
 }
 
